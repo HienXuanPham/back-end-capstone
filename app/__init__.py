@@ -20,7 +20,7 @@ def create_app(test_config=None):
         app.config["TESTING"] = True
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_TEST_DATABASE_URI")
     
-    app.config["JWT_SECRET_KEY"] = "jwt-secrect-key"
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
     jwt = JWTManager(app)
 
     from app.models.user import User
