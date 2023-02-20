@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response, abort
+from flask import Blueprint, request, jsonify, make_response, abort, session
 from app import db
 from app.models.user import User
 from app.models.note import Note
@@ -45,26 +45,23 @@ def user_log_in():
     db_user = User.query.filter_by(email=user_email).first()
 
     if db_user and check_password_hash(db_user.password, user_password):
-        access_token = create_access_token(identity=db_user.user_id)
-        refresh_token = create_refresh_token(identity=db_user.user_id)
+        session["user_id"] = db_user.user_id
         return jsonify({
             "message": "success",
-            "access_token": access_token,
-            "refresh_token": refresh_token,
             "user_id": f"{db_user.user_id}"
         })
     
     return jsonify({"message": "Your email or password is incorrect"})
 
-#--- Refresh token ---#
-# We are using the `refresh=True` options in jwt_required to only allow
-# refresh tokens to access this route.
-@api_bp.route("/refresh", methods=["POST"])
-@jwt_required(refresh=True)
-def refresh_token():
-    identity = get_jwt_identity()
-    access_token = create_access_token(identity=identity)
-    return jsonify({"access_token": access_token})
+#--- GET CURRENT USER ---#
+@api_bp.route("/@me")
+def get_current_user():
+    user_id = session.get("user_id")
+
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    user = User.query.filter_by(user_id=user_id).first()
+    return user.to_dict()
 
 #--- Sign Up ---#
 @api_bp.route("/signup", methods=["POST"])
@@ -91,15 +88,16 @@ def sign_up():
     db.session.add(new_user)
     db.session.commit()
 
+    session["user_id"] = new_user.user_id
+
     return jsonify({"message": "success", "user": new_user.to_dict()}), 201
     #return jsonify({"route": ""}) #return to home page to log in.
 
 #--- Log Out ---#
 @api_bp.route("/logout", methods=["POST"])
 def log_out():
-    response = jsonify({"message": "Log out successfully."})
-    unset_jwt_cookies(response)
-    return response
+    session.pop("user_id")
+    return "200"
 
 #--- User routes ---#
 @users_bp.route("", methods=["GET"])

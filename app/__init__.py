@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+import redis
+from flask_session import Session
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -23,6 +25,13 @@ def create_app(test_config=None):
     app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
     jwt = JWTManager(app)
 
+    app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
+
+    app.config["SESSION_TYPE"] = "redis"
+    app.config["SESSION_PERMANENT"] = False
+    app.config["SESSION_USE_SIGNER"] = True
+    app.config["SESSION_REDIS"] = redis.from_url("redis://127.0.0.1:6379")
+
     from app.models.user import User
 
     db.init_app(app)
@@ -34,5 +43,6 @@ def create_app(test_config=None):
     from .routes import api_bp
     app.register_blueprint(api_bp)
 
-    CORS(app)
+    Session(app)
+    CORS(app, supports_credentials=True)
     return app
