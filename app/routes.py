@@ -4,7 +4,6 @@ from app.models.user import User
 from app.models.note import Note
 from app.models.login import Login
 from app.models.signup import Signup
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, create_refresh_token, get_jwt, unset_jwt_cookies
 from werkzeug.security import generate_password_hash, check_password_hash
 
 users_bp = Blueprint("users", __name__, url_prefix="/users")
@@ -91,7 +90,6 @@ def sign_up():
     session["user_id"] = new_user.user_id
 
     return jsonify({"message": "success", "user": new_user.to_dict()}), 201
-    #return jsonify({"route": ""}) #return to home page to log in.
 
 #--- Log Out ---#
 @api_bp.route("/logout", methods=["POST"])
@@ -109,7 +107,6 @@ def get_all_users():
     return make_response(jsonify(users_response), 200)
 
 @users_bp.route("/<user_id>", methods=["GET"])
-@jwt_required()
 def get_user_by_id(user_id):
     user_info = validate_model(User, user_id)
     

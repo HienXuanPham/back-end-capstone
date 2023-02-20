@@ -14,7 +14,6 @@ class User(db.Model):
             "user_id": self.user_id,
             "name": self.name,
             "email": self.email,
-            #"password": self.password,
             "notes": [list(note.to_dict()) for note in self.notes]
         }
 

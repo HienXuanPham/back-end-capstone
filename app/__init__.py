@@ -4,7 +4,6 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
 import redis
 from flask_session import Session
 
@@ -21,12 +20,8 @@ def create_app(test_config=None):
     else:
         app.config["TESTING"] = True
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_TEST_DATABASE_URI")
-    
-    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
-    jwt = JWTManager(app)
 
     app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
-
     app.config["SESSION_TYPE"] = "redis"
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_USE_SIGNER"] = True
