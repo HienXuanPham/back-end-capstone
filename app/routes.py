@@ -73,7 +73,7 @@ def sign_up():
     db_user = User.query.filter_by(email=user_email).first()
 
     if db_user is not None:
-        return jsonify({"message": f"{user_email} already existed."}), 409
+        return jsonify({"message": f"{user_email} already existed."})
 
     if user_sign_up.password != user_sign_up.confirm_password:
         return jsonify({"message": "Password and Confirm Password fields must be exactly"})
