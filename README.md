@@ -25,4 +25,6 @@ pip install -r requirements.txt
 ```
 4. Create a database in Postgresql.
 
+# Deployment
+- Heroku: https://journal-back-end.herokuapp.com/
 
