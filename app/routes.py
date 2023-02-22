@@ -58,7 +58,7 @@ def get_current_user():
     user_id = session.get("user_id")
 
     if not user_id:
-        return jsonify({"error": "Unauthorized"}), 401
+        return jsonify({"error": "Unauthorized"})
     user = User.query.filter_by(user_id=user_id).first()
     return user.to_dict()
 
