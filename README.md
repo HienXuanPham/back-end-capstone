@@ -1,6 +1,6 @@
 # Journal
 
-Journal is a website that a user write their diary. The back-end is built by applying Flask framework with PostgreSQL as database.
+Journal is a web application that allows users to write and manage their personal diary. It provides a platform for users to document their thoughts, experiences, and reflections in a secure and private manner.
 
 # Demo
 https://drive.google.com/file/d/1WQNTOP8gn1pGcEZVGKI6xfgbRg7S1dMA/view?resourcekey
@@ -27,4 +27,16 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 4. Create a database in Postgresql.
+- Installing Postgres
+  - `brew install postgresql`
+  - `brew services start postgresql`
+- Create the Postgres user
+  - `createuser -s postgres`
+  - The most common default username and password for Postgres is
+    - username: postgres
+    - password: postgres
+- Create a database in Postgres
+  - Enter Postgres terminal: `psql -U postgres`
+  - Create a database: `CREATE DATABASE db_name;`
+  - Exit Postgres terminal: `\q`
 
