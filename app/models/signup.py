@@ -7,13 +7,6 @@ class Signup(db.Model):
     password = db.Column(db.Text, nullable=False)
     confirm_password = db.Column(db.Text, nullable=False)
 
-    # def to_dict(self):
-    #     return {
-    #         "signup_id": self.login_id,
-    #         "name": self.name,
-    #         "email": self.email
-    #     }
-
     @classmethod
     def from_dict(cls, request_data):
         new_signup = Signup(
