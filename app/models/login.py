@@ -6,12 +6,6 @@ class Login(db.Model):
     password = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
 
-    # def to_dict(self):
-    #     return {
-    #         "login_id": self.login_id,
-    #         "email": self.email
-    #     }
-
     @classmethod
     def from_dict(cls, request_data):
         new_login = Login(
