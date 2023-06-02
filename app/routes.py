@@ -98,14 +98,6 @@ def log_out():
     return "200"
 
 #--- User routes ---#
-@users_bp.route("", methods=["GET"])
-def get_all_users():
-    users = User.query.all()
-    users_response = []
-    for user in users:
-        users_response.append(user.to_dict())
-    return make_response(jsonify(users_response), 200)
-
 @users_bp.route("/<user_id>", methods=["GET"])
 def get_user_by_id(user_id):
     user_info = validate_model(User, user_id)
