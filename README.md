@@ -3,7 +3,8 @@
 Journal is a web application that allows users to write and manage their personal diary. It provides a platform for users to document their thoughts, experiences, and reflections in a secure and private manner.
 
 # Demo
-https://drive.google.com/file/d/1WQNTOP8gn1pGcEZVGKI6xfgbRg7S1dMA/view?resourcekey
+
+https://github.com/HienXuanPham/journal-back-end/assets/44250274/b667020b-3dcb-4c86-a78e-39096bf099e7
 
 # Dependencies
 - Front-end: React
@@ -40,3 +41,7 @@ pip install -r requirements.txt
   - Create a database: `CREATE DATABASE db_name;`
   - Exit Postgres terminal: `\q`
 
+## Entity Relationship Diagram
+
+
+    - username: postgres
