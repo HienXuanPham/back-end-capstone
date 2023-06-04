@@ -41,7 +41,3 @@ pip install -r requirements.txt
   - Create a database: `CREATE DATABASE db_name;`
   - Exit Postgres terminal: `\q`
 
-## Entity Relationship Diagram
-
-
-    - username: postgres
